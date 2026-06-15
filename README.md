@@ -29,7 +29,7 @@ python src/bonus_pipeline.py
 
 ```text
 ├── README.md                # Hướng dẫn chạy cài đặt và thực thi code
-├── report.md                # Báo cáo chi tiết quá trình và kết quả (Yêu cầu chính)
+├── report.pdf               # Báo cáo chi tiết quá trình và kết quả bản PDF (Yêu cầu chính)
 ├── requirements.txt         # Danh sách các thư viện cần thiết
 ├── src/                     # Thư mục chứa mã nguồn Python chính
 │   ├── config.py            # Cấu hình đường dẫn dự án
