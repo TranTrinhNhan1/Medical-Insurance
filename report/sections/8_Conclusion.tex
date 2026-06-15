@@ -1,0 +1,42 @@
+\section{Conclusion \& Bonus Pipeline}
+
+\subsection{Model Optimization Experiment}
+Để tiếp tục nâng cao hiệu suất, một \textbf{Bonus Pipeline} cải tiến đã được thiết kế và thực thi với hai hướng tiếp cận:
+\begin{enumerate}
+    \item \textbf{Cân bằng phân phối biến mục tiêu:} Áp dụng Log Transform (\texttt{np.log1p}) cho $y$ trong quá trình huấn luyện và khôi phục giá trị thực thông qua \texttt{np.expm1} ở bước dự đoán. Cơ chế này được tự động hóa thông qua \texttt{TransformedTargetRegressor}.
+    \item \textbf{Áp dụng thuật toán Gradient Boosting:} Đưa vào các kiến trúc Ensemble tiên tiến hơn là XGBoost và LightGBM nhằm tăng cường tốc độ và độ chính xác so với thuật toán Random Forest cơ bản.
+\end{enumerate}
+
+\begin{table}[H]
+  \caption{Kết Quả Mô Hình Sau Khi Áp Dụng Bonus Pipeline}
+  \label{tab:bonus_results}
+  \centering
+  \begin{tabular}{lrrrr}
+    \toprule
+    Mô hình & MAE & MSE & RMSE & R2 Score \\
+    \midrule
+    Log Transformed Linear Regression & 3755.92 & 51,797,278 & 7197.03 & 0.7181 \\
+    Log Transformed SVR & 2518.39 & 29,148,483 & 5398.93 & 0.8414 \\
+    XGBoost & 2663.22 & 25,971,562 & 5096.23 & 0.8587 \\
+    \textbf{LightGBM} & \textbf{2344.66} & \textbf{20,436,077} & \textbf{4520.63} & \textbf{0.8888} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Conclusion}
+Dựa trên Bonus Pipeline, mô hình \textbf{LightGBM} cho thấy hiệu năng vượt trội, đạt giá trị MAE thấp nhất (2344.66) và R2 Score cao nhất (\textbf{0.8888}). Đáng chú ý là Log Transform lại làm giảm hiệu suất của Linear Regression do đặc trưng \texttt{is\_smoker\_obese} có quan hệ tuyến tính trực tiếp với giá trị gốc của \texttt{charges} hơn là giá trị Log.
+
+Nghiên cứu đã hoàn thành mục tiêu xây dựng và dự báo chi phí y tế. Qua đó, kết quả thực nghiệm khẳng định tầm quan trọng của Data Preprocessing, Feature Engineering và Hyperparameter Tuning. Mô hình LightGBM được đề xuất làm phương pháp tối ưu nhất cho bài toán này.
+
+\subsection{Challenges \& Future Work}
+\textbf{Khó khăn gặp phải:}
+\begin{itemize}
+    \item Dữ liệu có đặc thù lệch phải mạnh, gây khó khăn cho các mô hình tuyến tính nếu không có Feature Engineering phù hợp.
+    \item Việc tối ưu GridSearchCV tốn khá nhiều tài nguyên tính toán đối với cấu trúc Ensemble phức tạp như XGBoost hay LightGBM.
+\end{itemize}
+
+\textbf{Hướng cải thiện trong tương lai:}
+\begin{itemize}
+    \item Thu thập thêm dữ liệu từ các nguồn đa dạng hơn để tránh tình trạng phân phối tập trung vào một số cụm giá trị đặc thù.
+    \item Áp dụng các kỹ thuật AutoML tiên tiến như Optuna để tìm kiếm không gian siêu tham số nhanh và tối ưu hơn so với thuật toán Grid Search truyền thống.
+\end{itemize}

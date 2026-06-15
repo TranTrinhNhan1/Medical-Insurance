@@ -1,0 +1,20 @@
+\section{Results}
+
+Các mô hình được đánh giá thông qua tập Test và Cross-validation (K=5) trên tập Train. Sự kết hợp giữa CV Score và Test Score cho phép chúng ta có cái nhìn toàn diện về độ ổn định của mô hình. Kết quả chi tiết được trình bày tại Bảng \ref{tab:results}.
+
+\begin{table}[H]
+  \caption{Bảng So Sánh Hiệu Suất Các Mô Hình (Đã qua Hyperparameter Tuning \& Outlier Removal)}
+  \label{tab:results}
+  \centering
+  \begin{tabular}{lrrrrr}
+    \toprule
+    Mô hình & CV Mean R2 & MAE & MSE & RMSE & Test R2 \\
+    \midrule
+    Linear Regression & \textbf{0.8607} & 2479.03 & 20,506,677 & 4528.43 & 0.8525 \\
+    Decision Tree & 0.8404 & 3124.28 & 30,342,130 & 5508.37 & 0.7817 \\
+    Random Forest & 0.8561 & 2546.18 & 20,048,804 & 4477.59 & \textbf{0.8558} \\
+    K-Nearest Neighbors & 0.8234 & 3023.20 & 27,092,844 & 5205.08 & 0.8051 \\
+    Support Vector Regressor & 0.8284 & \textbf{1889.45} & 23,060,624 & 4802.15 & 0.8341 \\
+    \bottomrule
+  \end{tabular}
+\end{table}

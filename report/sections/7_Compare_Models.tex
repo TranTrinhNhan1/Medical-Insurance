@@ -1,0 +1,21 @@
+\section{Compare Models}
+
+\subsection{Linear Regression \& Feature Engineering Synergy}
+Trong số các thuật toán, \textbf{Linear Regression} đã có màn trình diễn xuất sắc và bất ngờ nhất với điểm CV Mean R2 cao nhất (\textbf{0.8607}) và Test R2 = 0.8525. Thành công này đến trực tiếp từ bước Feature Engineering khi bổ sung biến \texttt{is\_smoker\_obese}. Khác với trước đây khi Linear Regression chỉ mô tả được xu hướng tuyến tính phẳng và thất bại trước tương tác chéo, việc cung cấp sẵn cross-feature interaction này đã giúp mô hình tuyến tính vượt qua cả các thuật toán phức tạp.
+
+\subsection{Random Forest Regressor}
+Dù không còn dẫn đầu tuyệt đối về mọi mặt, \textbf{Random Forest} vẫn thể hiện sự ổn định tuyệt vời với Test R2 cao nhất (\textbf{0.8558}). Sức mạnh này đến từ:
+\begin{itemize}
+    \item \textbf{Tính chất Ensemble:} Bằng cách xây dựng hàng ngàn Decision Tree khác nhau dựa trên việc bootstrap \& feature bagging, Random Forest giảm thiểu đáng kể vấn đề High Variance thường thấy ở Decision Tree đơn lẻ.
+    \item \textbf{Nắm bắt quan hệ phi tuyến:} Thuật toán phân mảnh không gian theo dạng bậc thang, cho phép mô hình dễ dàng tự học được các cross-feature interactions cực kỳ phức tạp ngay cả khi không có Feature Engineering.
+\end{itemize}
+
+\subsection{Support Vector Regressor (SVR) Performance Analysis}
+Trước khi thực hiện tối ưu, kết quả kiểm thử cho thấy SVR đạt hiệu suất cực kỳ thấp (R2 Score âm). Tuy nhiên, sau khi áp dụng \textbf{GridSearchCV} và tìm ra bộ tham số tối ưu (\texttt{C=1000.0}, \texttt{gamma=0.1}), SVR đã đạt được \textbf{MAE thấp nhất (1889.45)}. 
+Sự lột xác này chứng minh tầm quan trọng của Hyperparameter Tuning:
+\begin{itemize}
+    \item Việc tăng \texttt{C=1000.0} đã ép hyperplane hội tụ chính xác hơn trên các biên dữ liệu, cho phép SVR tối thiểu hóa sai số tuyệt đối (MAE) vô cùng hiệu quả.
+\end{itemize}
+
+\subsection{Overfitting Evaluation}
+Nhờ việc bổ sung Cross-validation (K=5), chúng ta có thể đánh giá mức độ Overfitting một cách rõ ràng. Sự chênh lệch giữa \textbf{CV Mean R2} và \textbf{Test R2} ở hầu hết các mô hình là rất nhỏ (dưới 0.02). Ví dụ, Random Forest có CV R2 là 0.8561 và Test R2 là 0.8558. Điều này khẳng định quy trình Train/Test Split ban đầu kết hợp với Data Cleaning đã đại diện tốt cho toàn bộ không gian dữ liệu, và mô hình có khả năng generalization xuất sắc.

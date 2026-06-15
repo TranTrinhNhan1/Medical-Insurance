@@ -1,0 +1,20 @@
+\section{Models}
+
+Để tìm ra phương pháp dự báo giá trị \texttt{charges} tối ưu, năm thuật toán cơ bản đã được lựa chọn huấn luyện:
+\begin{itemize}
+    \item \textbf{Linear Regression}: Mô hình Linear Regression cơ bản, làm baseline đo lường.
+    \item \textbf{Decision Tree Regressor}: Mô hình Decision Tree, dễ hiểu trực quan nhưng dễ gặp overfitting.
+    \item \textbf{Random Forest Regressor}: Thuật toán Ensemble mạnh mẽ, xây dựng đa dạng hóa thông qua tập hợp nhiều Decision Tree.
+    \item \textbf{K-Nearest Neighbors (KNN)}: Thuật toán distance-based.
+    \item \textbf{Support Vector Regressor (SVR)}: Thuật toán cố gắng tìm ra một hyperplane bao trọn tối đa các điểm dữ liệu bên trong biên độ sai số $\epsilon$.
+\end{itemize}
+
+\subsection{Hyperparameter Tuning}
+Mặc định, các mô hình khởi tạo với tham số tiêu chuẩn có thể không tận dụng được tối đa tiềm năng dữ liệu. Do đó, kỹ thuật \textbf{GridSearchCV} kết hợp với \textbf{K-Fold Cross-Validation (K=5)} được áp dụng trên tập Train để tự động rà soát parameter grid:
+\begin{itemize}
+    \item \textbf{Random Forest}: Tìm kiếm giá trị tối ưu cho \texttt{max\_depth} và \texttt{n\_estimators}.
+    \item \textbf{Decision Tree}: Tinh chỉnh \texttt{max\_depth} và \texttt{min\_samples\_split}.
+    \item \textbf{KNN}: Lựa chọn \texttt{n\_neighbors} và \texttt{weights} (uniform vs distance).
+    \item \textbf{SVR}: Khảo sát biên độ rộng với \texttt{C} (từ 0.1 đến 1000) và \texttt{gamma} nhằm tìm ra mặt phẳng tốt nhất cho biến mục tiêu có phương sai lớn.
+\end{itemize}
+Bước này không chỉ cải thiện độ chính xác mà điểm \textbf{CV Mean R2 Score} thu được còn đóng vai trò tham chiếu tuyệt vời để kiểm tra mức độ Overfitting khi đối chiếu với Test Score.

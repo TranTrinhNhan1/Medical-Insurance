@@ -1,0 +1,17 @@
+\section{Data Preprocessing}
+
+Quá trình Data Preprocessing đóng vai trò quyết định nhằm loại bỏ nhiễu và định dạng lại dữ liệu sao cho phù hợp với đầu vào của các thuật toán Machine Learning. Để tránh hiện tượng Data Leakage — nơi mô hình học được thông tin từ Test Set — quy trình được thiết kế cẩn trọng qua các bước sau:
+
+\begin{enumerate}
+    \item \textbf{Data Cleaning}: Quét và xóa 1 dòng dữ liệu trùng lặp. Đặc biệt, phân tích IQR trên cột \texttt{bmi} phát hiện và loại bỏ 9 outliers, giúp các mô hình giảm nhiễu trước khi huấn luyện.
+    \item \textbf{Feature Engineering}: Dựa trên insight từ EDA, một đặc trưng mới \texttt{is\_smoker\_obese} được tạo ra. Khách hàng vừa hút thuốc vừa có \texttt{bmi} > 30 sẽ nhận giá trị 1, ngược lại là 0. Điều này giúp các mô hình Linear Regression nắm bắt ngay được tương tác chéo cực độ này mà không cần cơ chế phân nhánh phức tạp.
+    \item \textbf{Train/Test Split}: Tập dữ liệu được phân chia ngẫu nhiên thành hai phần theo tỷ lệ 80\% (Train) và 20\% (Test) với \texttt{random\_state=42} để đảm bảo tính reproducibility.
+    \item \textbf{Categorical Encoding linh hoạt}: Các categorical features (\texttt{sex}, \texttt{smoker}, \texttt{region}) được biến đổi bằng \texttt{OneHotEncoder}. Cấu hình được tinh chỉnh động tùy theo mô hình:
+    \begin{itemize}
+        \item Mô hình tuyến tính (Linear/SVR): Sử dụng \texttt{drop='first'} để loại bỏ một phân lớp, tránh hiện tượng multicollinearity chết người.
+        \item Mô hình dựa trên cây (Decision Tree/Random Forest): Sử dụng \texttt{drop=None} để giữ lại tất cả các cột, giúp thuật toán phân tách đối xứng tự nhiên hơn.
+    \end{itemize}
+    \item \textbf{Feature Scaling}: Các numerical features (\texttt{age}, \texttt{bmi}, \texttt{children}, \texttt{is\_smoker\_obese}) được scale về mean = 0 và variance = 1 thông qua \texttt{StandardScaler}. Scaler này chỉ được \texttt{fit} chặt chẽ trên tập Train.
+\end{enumerate}
+
+Toàn bộ các quy trình biến đổi tính năng trên được đóng gói bằng đối tượng \texttt{ColumnTransformer} và \texttt{Pipeline} của \texttt{scikit-learn}, đảm bảo toàn bộ quy trình đi từ Raw Data đến Model Prediction là một flow không bị ngắt quãng.
