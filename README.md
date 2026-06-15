@@ -13,7 +13,7 @@ Dự án này là Bài tập thực hành cá nhân (Môn học: Nhập môn Kho
 │   ├── data_processing.py   # Các hàm tiền xử lý dữ liệu
 │   ├── model_training.py    # Các hàm khởi tạo mô hình
 │   ├── evaluation.py        # Các hàm đánh giá và lưu kết quả
-│   ├── main_pipeline.py     # Pipeline chạy 5 mô hình cơ bản (bắt buộc)
+│   ├── main_pipeline.py     # Pipeline chạy 5 mô hình cơ bản 
 │   └── bonus_pipeline.py    # Pipeline cải tiến (Log Transform, XGBoost, LightGBM)
 ├── notebook/
 │   └── EDA.ipynb            # Notebook phân tích trực quan dữ liệu
