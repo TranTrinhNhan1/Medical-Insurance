@@ -2,34 +2,11 @@
 
 Dự án này là Bài tập thực hành cá nhân (Môn học: Nhập môn Khoa học Dữ liệu), giải quyết bài toán Regression nhằm dự báo chi phí bảo hiểm y tế dựa trên dữ liệu thông tin cá nhân.
 
-## 1. Cài đặt môi trường
-Đảm bảo bạn đã cài đặt Python. Cài đặt các thư viện cần thiết thông qua file `requirements.txt`:
-```bash
-pip install -r requirements.txt
-```
-
-## 2. Thực thi Pipeline Cơ Bản
-Chạy file `main_pipeline.py` để tự động thực hiện toàn bộ quy trình: Tải dữ liệu, Preprocessing, Huấn luyện (Linear Regression, Decision Tree, Random Forest, KNN, SVR), Đánh giá và xuất biểu đồ.
-```bash
-python src/main_pipeline.py
-```
-Kết quả và các biểu đồ (Actual vs Predicted, Residuals, Feature Importance, Learning Curve) sẽ được lưu tự động vào thư mục `outputs/`.
-
-## 3. Thực thi Bonus Pipeline (Nâng cao)
-Chạy file `bonus_pipeline.py` để trải nghiệm phiên bản tối ưu hóa với Log Transform cho biến mục tiêu và các mô hình Gradient Boosting (XGBoost, LightGBM):
-```bash
-python src/bonus_pipeline.py
-```
-
----
-
-# Báo Cáo Phân Tích Kết Quả
-
-## 4. Cấu trúc thư mục
+## 1. Cấu trúc thư mục
 
 ```text
 ├── README.md                # Hướng dẫn chạy cài đặt và thực thi code
-├── report.pdf               # Báo cáo chi tiết quá trình
+├── report.pdf               # Báo cáo chi tiết quá trình và kết quả bản PDF
 ├── requirements.txt         # Danh sách các thư viện cần thiết
 ├── src/                     # Thư mục chứa mã nguồn Python chính
 │   ├── config.py            # Cấu hình đường dẫn dự án

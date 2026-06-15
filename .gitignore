@@ -8,3 +8,25 @@ wheels/
 
 # Virtual environments
 .venv
+.env
+
+# LaTeX auxiliary files
+*.aux
+*.bbl
+*.blg
+*.brf
+*.fls
+*.fdb_latexmk
+*.idx
+*.ilg
+*.ind
+*.lof
+*.lot
+*.log
+*.out
+*.toc
+*.synctex.gz
+
+# OS generated files
+.DS_Store
+Thumbs.db
